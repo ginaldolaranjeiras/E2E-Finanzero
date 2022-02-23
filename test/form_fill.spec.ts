@@ -1,8 +1,20 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, devices } from "@playwright/test";
+
+// test.use({
+//   ...devices.desktop,
+//   ...devices.mobile,
+//   ...devices["iPhone 11 Pro"],
+//   ...devices["iPhone 11 Pro Max"],
+// });
+
+test.use({
+  ...devices["iPhone 13 Mini"],
+  ...devices["Desktop Chrome"]
+});
 
 test("Formulário", async ({ page }) => {
-  // Acessa a página https://finanzero.com.br/
-  await page.goto("https://finanzero.com.br/" /* , { timeout: 3000 } */);
+  // Acessa a página https://finanzero.com.br/ após um tempo de espera
+  await page.goto("https://finanzero.com.br/" /*, { timeout: 3000 } */);
   await page.screenshot({ path: "screenshots/0001home.png" });
   // Aceita os cookies
   await page.click("text=Entendi");
@@ -77,7 +89,9 @@ test("Formulário", async ({ page }) => {
   await page.locator('[placeholder="\\(__\\)\\ _____\\ ____"]').click();
   await page.screenshot({ path: "screenshots/015data-inicio-trabalho.png" });
   // Preenche o telefone
-  await page.locator('[placeholder="\\(__\\)\\ _____\\ ____"]').fill("11987654321");
+  await page
+    .locator('[placeholder="\\(__\\)\\ _____\\ ____"]')
+    .fill("11987654321");
   await page.screenshot({ path: "screenshots/016telefone.png" });
   // Seleciona o campo email
   await page
